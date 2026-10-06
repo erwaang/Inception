@@ -2,11 +2,10 @@
 set -e
 
 DB_PASSWORD=$(cat /run/secrets/db_password)
-. /run/secrets/credentials   # définit WP_ADMIN_PASSWORD et WP_USER_PASSWORD
+. /run/secrets/credentials
 
 cd /var/www/html
 
-# Attente bornée de MariaDB (30 essais max, pas une boucle infinie)
 i=0
 until mariadb-admin ping -h mariadb -u"${MYSQL_USER}" -p"${DB_PASSWORD}" --silent; do
     i=$((i + 1))

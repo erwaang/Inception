@@ -7,13 +7,11 @@ DB_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
-# Premier lancement : le volume est vide
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "[mariadb] Initialisation du dossier de données..."
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql > /dev/null
 fi
 
-# La base WordPress n'existe pas encore : on la crée
 if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
     echo "[mariadb] Création de la base et des utilisateurs..."
     mysqld --user=mysql --bootstrap << EOF

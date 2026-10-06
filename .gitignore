@@ -1,2 +1,4 @@
-secrets/
+secrets/*
+!secrets/*.example
+
 srcs/.env
